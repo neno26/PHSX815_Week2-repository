@@ -47,12 +47,17 @@ def Cookie_Plot(InputFile):
     delta = 1
     xmin = min(times) - delta
     xmax = max(times) + delta
+    q    = .2 #quantile
+    qq   = .9  #Quantile
+    n    = len(times)
     
     
     plt.figure()     
     plt.hist(times, Nmeas+1, density=True, facecolor='r', alpha=0.5,histtype='stepfilled', label = "Time",edgecolor='none')
     plt.axvline(x=time_mean, linewidth=1, color='g', label ="mean time")
     plt.axvline(x=time_mean+time_std, linewidth=1, color='b', label = "One-$\sigma$ ")
+    plt.axvline(x=times[int(q*(n+1))] ,linewidth=1, color='g', label = "20th Quantile ",linestyle='--')
+    plt.axvline(x=times[int(qq*(n+1))] ,linewidth=1, color='r', label = "90th Quantile ",linestyle='--')
     plt.axvline(x=time_mean+2*time_std, linewidth=1, color='b',linestyle='--', label = "Two-$\sigma$ ")
     plt.axvline(x=time_mean-time_std, linewidth=1, color='b')
 
